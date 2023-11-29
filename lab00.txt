@@ -1,0 +1,34 @@
+0x00001141 <+8>:		mov eax, 0x20
+assegna il valore 0x20 = 32 al registro `eax`
+
+0x00001148 <+15>:		mov edx, 0x38
+assegna il valore 0x38 = 56 al registro `edx`
+
+0x00001155 <+28>:		add eax, edx
+somma il valore di `edx` (0x38) al valore di `eax` (0x20) e salvalo su `eax`
+`eax` vale ora 0x58 = 88
+
+0x00001157 <+30>:		mov ebp, eax
+assegna il valore appena calcolato al registro `ebp`, che punta alla base dello stack
+
+0x0000115A <+33>:		cmp ebp, 0xA
+confronta il valore di `ebp` con 0xA. In questo caso 0x58 = 88 risulta maggiore di
+0xA = 10, quindi sia `ZF` sia `CF` vengono impostate a 0.
+
+0x0000115E <+37>:		jge 0x1176 <main+61>
+L'istruzione `jge` controlla i valori delle flag `ZF` e `CF`. Dal momento che `CF` è nulla,
+allora l'ultimo confronto ha avuto come primo operatore un numero maggiore del secondo.
+`jge` effettua un salto per questo motivo verso l'indirizzo 0x1176 non presnte
+in questo estratto di codice, ma comunque appartenente alla funzione main.
+
+Se non fosse stato così, il codice sarebbe andato avanti senza alterazioni (non sappiamo
+se nel programma completo ci sono altri salti a questi indirizzi).
+0x0000116A <+49>:		mov eax, 0x0
+Azzera il registro `eax`. Corrisponde a `xor eax, eax`, anche se meno efficiente.
+Il motivo per cui viene azzerato il registro `eax` è che la funzione chiamata con l'istruzione
+successiva è una funzione "variadica", ovvero può accettare un numero variabile di parametri.
+In questo caso sono gli 8 bit meno di valenza del registro `eax` a indicare il numero di,
+ad esempio, valori `float` che vengono passati alla funzione.
+
+0x0000116F <+54>:		call 0x1030 <printf@plt>
+chiama la funzione `printf` (`plt` fa riferimento a importazione dinamica)
