@@ -25,10 +25,9 @@ Se non fosse stato così, il codice sarebbe andato avanti senza alterazioni (non
 se nel programma completo ci sono altri salti a questi indirizzi).
 0x0000116A <+49>:		mov eax, 0x0
 Azzera il registro `eax`. Corrisponde a `xor eax, eax`, anche se meno efficiente.
-Il motivo per cui viene azzerato il registro `eax` è che la funzione chiamata con l'istruzione
-successiva è una funzione "variadica", ovvero può accettare un numero variabile di parametri.
-In questo caso sono gli 8 bit meno di valenza del registro `eax` a indicare il numero di,
-ad esempio, valori `float` che vengono passati alla funzione.
+Si nota che passando come parametro uno o due valori `float` per `printf`, `eax` assume
+il valore di `1` e `2`, rispettivamente. Passando come parametri solamente una o due
+stringhe o interi, invece, `eax` viene azzerato.
 
 0x0000116F <+54>:		call 0x1030 <printf@plt>
 chiama la funzione `printf` (`plt` fa riferimento a importazione dinamica)
